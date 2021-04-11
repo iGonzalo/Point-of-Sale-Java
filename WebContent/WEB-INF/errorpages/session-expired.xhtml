@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<meta http-equiv="refresh"
+		content="0;url=#{request.contextPath}/login.xhtml" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Sesión Expirada</title>
+</h:head>
+
+<h:body>
+	<h1>Tu sesión ha expirado</h1>
+	<h3>Serás redirigido a la página principal.</h3>
+	<p>
+		<a href="#{request.contextPath}/login.xhtml">Click aquí si tu
+			navegador no te redirige automáticamente.</a>.
+	</p>
+</h:body>
+</html>

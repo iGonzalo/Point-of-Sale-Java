@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Producto</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="icon" type="image/x-icon" href="" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
+	<link rel="stylesheet" type="text/css"
+		href="/puntoventa/assets/css/vendor/fontawesome/all.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/puntoventa/assets/css/sb-admin-2.min.css" />
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="/puntoventa/assets/js/sb-admin-2.min.js"
+		type="text/javascript"></script>
+
+	<!-- style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: left !important;
+}
+
+.ui-button-text-only .ui-button-text {
+	display: flex !important;
+	justify-content: center !important;
+	padding: .2em !important;
+}
+</style-->
+
+	<style type="text/css">
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: auto;
+	height: 1px;
+	margin: -1px;
+	overflow: initial;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+</style>
+
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					var $rows = $('table tbody tr');
+					$('#search').keyup(
+							function() {
+								var val = $.trim($(this).val()).replace(/ +/g,
+										' ').toLowerCase();
+
+								$rows.show().filter(
+										function() {
+											var text = $(this).text().replace(
+													/\s+/g, ' ').toLowerCase();
+											return !~text.indexOf(val);
+										}).hide();
+							});
+				});
+
+		function closeModal() {
+			$('#addModal').modal('hide');
+		}
+
+		function editModal() {
+			$('#editModal').modal('show');
+		}
+
+		function deleteModal() {
+			$('#deleteModal').modal('show');
+		}
+	</script>
+
+</h:head>
+
+<h:body id="page-top" class="sidebar-toggled">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+			id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 1}">
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="admin.xhtml">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-cash-register"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">Punto de Venta</div>
+			</a>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 2}">
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="home.xhtml">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-cash-register"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">Punto de Venta</div>
+			</a>
+			</h:panelGroup>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0"></hr>
+
+			<!-- Nav Item - Dashboard -->
+			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 1}">
+				<li class="nav-item"><a class="nav-link"
+					href="admin.xhtml"> <i class="fas fa-shopping-cart"></i> <span>Reporte de Ventas</span></a>
+				</li>
+			</h:panelGroup>
+
+			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 2}">
+				<li class="nav-item"><a class="nav-link" href="home.xhtml">
+						<i class="fas fa-shopping-cart"></i> <span>Ventas</span>
+				</a></li>
+			</h:panelGroup>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider"></hr>
+
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item active"><a class="nav-link collapsed"
+				href="#" data-toggle="collapse" data-target="#collapseTwo"
+				aria-expanded="true" aria-controls="collapseTwo"> <i
+					class="fas fa-shopping-basket"></i> <span>Productos</span></a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Producto:</h6>
+						<a class="collapse-item" href="producto.xhtml">Administrar
+							Productos</a>
+					</div>
+				</div></li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider"></hr>
+
+			<!-- Nav Item - Utilities Collapse Menu -->
+			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 2}">
+				<li class="nav-item"><a class="nav-link collapsed" href="#"
+					data-toggle="collapse" data-target="#collapseUtilities"
+					aria-expanded="true" aria-controls="collapseUtilities"> <i
+						class="fas fa-fw fa-wrench"></i> <span>Utilities</span></a></li>
+				<!-- Divider -->
+				<hr class="sidebar-divider"></hr>
+			</h:panelGroup>
+
+
+		</ul>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
+
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
+
+						<div class="topbar-divider d-none d-sm-block"></div>
+
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span
+								class="mr-2 d-none d-lg-inline text-gray-600 small">#{sessionBean.usuario}</span>
+						</a> <!-- Dropdown - User Information -->
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="#"> <i
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+									Configuración
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+									Registro de Actividad
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal"> <i
+									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Salir
+								</a>
+							</div></li>
+
+					</ul>
+
+				</nav>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div style="padding-left: 1rem;">
+
+					<!-- Page Heading -->
+					<div class="d-sm-flex align-items-center justify-content-between">
+						<h3 class="mb-0 text-gray-800">Administrar Productos</h3>
+					</div>
+
+				</div>
+				<hr style="border-bottom: 3px solid #ffd400;"></hr>
+				<p></p>
+				<!-- Content Row -->
+				<div class="col-12">
+
+					<div>
+						<h:form id="tableForm">
+							<input type="text" id="search" placeholder="Buscar..." />
+							<p:dataTable id="productosDT" var="producto" paginator="true"
+								rows="5" paginatorPosition="bottom"
+								class="table table-dark table-striped table-responsive-sm"
+								tableStyle="table-layout: auto;" lazy="true"
+								rowsPerPageTemplate="5,10,15" update="productosDT"
+								emptyMessage="No hay productos para mostrar."
+								value="#{productoBean.productos}" widgetVar="productosDt"
+								rowIndexVar="index">
+
+								<p:column headerText="#" filterBy="#{index}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column headerText="Producto" filterBy="#{producto.nombre}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText value="#{producto.nombre}" />
+								</p:column>
+
+								<p:column headerText="Codigo" filterBy="#{producto.codigo}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText value="#{producto.codigo}" />
+								</p:column>
+
+								<p:column headerText="Precio Compra"
+									filterBy="#{producto.precioVenta}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText value="$ #{producto.precioCompra}" />
+								</p:column>
+								
+								<p:column headerText="Precio Venta"
+									filterBy="#{producto.precioVenta}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText value="$ #{producto.precioVenta}" />
+								</p:column>
+
+								<p:column headerText="Cantidad Disponible"
+									filterMatchMode="contains"
+									filterBy="#{producto.cantidadDisponible}"
+									filterStyle="display:none; visibility:hidden;">
+									<h:outputText rendered="#{producto.tipoVenta == 1}"
+										value="#{producto.cantidadDisponible}" />
+									<h:outputText rendered="#{producto.tipoVenta == 2}"
+										value="#{producto.cantidadDisponible} gramos" />
+								</p:column>
+
+								<p:column headerText="Opciones">
+
+									<p:commandButton value="Editar" class="btn btn-primary btn-sm"
+										action="#{productoBean.setEditarProducto(index)}"
+										icon="fas fa-edit" oncomplete="editModal();"
+										update=":editForm"></p:commandButton>
+									<p:commandButton value="Eliminar" class="btn btn-danger btn-sm"
+										oncomplete="deleteModal();" icon="fas fa-eraser"
+										action="#{productoBean.setEliminarProducto(index)}"></p:commandButton>
+
+								</p:column>
+
+							</p:dataTable>
+							<div style="margin-top: 10px;">
+								<button class="btn btn-primary" data-toggle="modal"
+									data-target="#addModal" type="button">
+									<i class="fas fa-plus"></i> Agregar Nuevo Producto
+								</button>
+
+								<button class="btn btn-success" data-toggle="modal"
+									data-target="#addExcelModal" type="button">
+									<i class="fas fa-file-excel"></i> Agregar Productos Excel
+								</button>
+							</div>
+						</h:form>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright Gonzalo León 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						<i class="fas fa-exclamation-circle"></i> Aviso
+					</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Se perderán todos los movimientos que
+					no hayan sido guardados.</div>
+				<div class="modal-footer">
+					<h:form>
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancelar</button>
+						<p:commandButton value="Salir" id="salir"
+							class="btn btn-outline-danger btn-sm"
+							action="#{loginBean.logout}" ajax="false" type="submit" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Add Modal -->
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="addModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addModalLabel">Agregar Producto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Cerrar">
+						<span aria-hidden="true">x</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h:form>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Código</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-barcode"></i></span>
+									</div>
+									<p:inputText id="codigo" autocomplete="off" required="true"
+										value="#{productoBean.codigo}" class="form-control">
+										<p:ajax update="guardar" event="change" />
+									</p:inputText>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Nombre /
+									Descripción</label>
+								<p:inputText value="#{productoBean.nombre}" class="form-control"
+									id="nombre" required="true">
+									<p:ajax update="guardar" event="change" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Tipo de Venta</label>
+								<p:selectOneRadio id="tipoVenta" unselectable="false"
+									required="true" style="font-size: 12px;"
+									value="#{productoBean.tipoVenta}"
+									enabledClass="form-check-input">
+									<f:selectItem itemLabel="Individual / Pieza" itemValue="1" />
+									<f:selectItem itemLabel="A Granel" itemValue="2" />
+									<p:ajax update="cantidadLabel compraLabel ventaLabel"
+										event="change" />
+								</p:selectOneRadio>
+							</div>
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVenta eq 1 ? 'Cantidad' : 'Cantidad (en gramos)'}"
+									id="cantidadLabel"></h:outputText>
+								<p:inputText value="#{productoBean.cantidad}" required="true"
+									onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+									class="form-control" id="cantidad">
+									<p:ajax update="guardar" event="change" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVenta eq 1 ? 'Precio Compra' : 'Precio Compra (por kilo)'}"
+									id="compraLabel"></h:outputText>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-dollar-sign"></i></span>
+									</div>
+									<p:inputText id="precioCompra" autocomplete="off"
+										onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+										required="true" value="#{productoBean.precioCompra}"
+										class="form-control">
+										<p:ajax update="guardar" event="change" />
+									</p:inputText>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVenta eq 1 ? 'Precio Venta' : 'Precio Venta (por kilo)'}"
+									id="ventaLabel"></h:outputText>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-dollar-sign"></i></span>
+									</div>
+									<p:inputText id="precioVenta" autocomplete="off"
+										onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+										required="true" value="#{productoBean.precioVenta}"
+										class="form-control">
+										<p:ajax update="guardar" event="change" />
+									</p:inputText>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Departamento</label>
+								<p:selectOneMenu id="departamento" style="width: 100%;"
+									required="true" value="#{productoBean.departamento}">
+									<f:selectItem itemLabel="Seleccionar" noSelectionOption="true"
+										itemValue="0" />
+									<f:selectItem itemLabel="Abarrotes" itemValue="1" />
+									<f:selectItem itemLabel="Bebidas" itemValue="2" />
+									<f:selectItem itemLabel="Bebidas Alcoholicas" itemValue="3" />
+									<f:selectItem itemLabel="Botanas" itemValue="4" />
+									<f:selectItem itemLabel="Carnes" itemValue="5" />
+									<f:selectItem itemLabel="Dulceria" itemValue="6" />
+									<f:selectItem itemLabel="Enlatados" itemValue="7" />
+									<f:selectItem itemLabel="Farmacia" itemValue="8" />
+									<f:selectItem itemLabel="Harinas" itemValue="9" />
+									<f:selectItem itemLabel="Lacteos" itemValue="10" />
+									<f:selectItem itemLabel="Otros" itemValue="11" />
+									<p:ajax update="guardar" event="change" />
+								</p:selectOneMenu>
+							</div>
+						</div>
+						<p:messages id="messages" showDetail="true" closable="true">
+							<p:autoUpdate />
+							<p:ajaxStatus
+								oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 2000)" />
+						</p:messages>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+							<p:commandButton value="Guardar" class="btn btn-success btn-sm"
+								id="guardar"
+								disabled="#{productoBean.codigo eq '' || productoBean.nombre eq '' || productoBean.cantidad eq 0 || productoBean.cantidad eq null || productoBean.precioCompra eq 0 || productoBean.precioCompra eq null || productoBean.precioVenta eq 0 || productoBean.precioVenta eq null || productoBean.departamento eq 0}"
+								action="#{productoBean.guardarProducto}" process="@form"></p:commandButton>
+						</div>
+					</h:form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Edit Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+		aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editModalLabel">Editar Producto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Cerrar">
+						<span aria-hidden="true">x</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h:form id="editForm">
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Código</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-barcode"></i></span>
+									</div>
+									<p:inputText id="codigo" autocomplete="off" required="true"
+										readonly="true" value="#{productoBean.codigoEdit}"
+										class="form-control">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Nombre /
+									Descripción</label>
+								<p:inputText value="#{productoBean.nombreEdit}"
+									class="form-control" id="nombre" required="true">
+									<p:ajax update="guardarEdicion" event="change" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Tipo de Venta</label>
+								<p:selectOneRadio id="tipoVenta" unselectable="false"
+									required="true" style="font-size: 12px;"
+									value="#{productoBean.tipoVentaEdit}">
+									<f:selectItem itemLabel="Individual / Pieza" itemValue="1" />
+									<f:selectItem itemLabel="A Granel" itemValue="2" />
+									<p:ajax update="cantidadLabel compraLabel ventaLabel"
+										event="change" />
+								</p:selectOneRadio>
+							</div>
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVentaEdit eq 1 ? 'Cantidad' : 'Cantidad (en gramos)'}"
+									id="cantidadLabel"></h:outputText>
+								<p:inputText value="#{productoBean.cantidadEdit}"
+									onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+									required="true" class="form-control" id="cantidad">
+									<p:ajax update="guardarEdicion" event="change" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVentaEdit eq 1 ? 'Precio Compra' : 'Precio Compra (por kilo)'}"
+									id="compraLabel"></h:outputText>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-dollar-sign"></i></span>
+									</div>
+									<p:inputText id="precioCompra" autocomplete="off"
+										onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+										required="true" value="#{productoBean.precioCompraEdit}"
+										class="form-control">
+										<p:ajax update="guardarEdicion" event="change" />
+									</p:inputText>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<span class="text-danger">* </span>
+								<h:outputText
+									value="#{productoBean.tipoVentaEdit eq 1 ? 'Precio Venta' : 'Precio Venta (por kilo)'}"
+									id="ventaLabel"></h:outputText>
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-dollar-sign"></i></span>
+									</div>
+									<p:inputText id="precioVenta" autocomplete="off"
+										onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+										required="true" value="#{productoBean.precioVentaEdit}"
+										class="form-control">
+										<p:ajax update="guardarEdicion" event="change" />
+									</p:inputText>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label><span class="text-danger">*</span> Departamento</label>
+								<p:selectOneMenu id="departamento" style="width: 100%;"
+									required="true" value="#{productoBean.departamentoEdit}"
+									appendTo="@this">
+									<f:selectItem itemLabel="Seleccionar" itemValue="0"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Abarrotes" itemValue="1" />
+									<f:selectItem itemLabel="Bebidas" itemValue="2" />
+									<f:selectItem itemLabel="Bebidas Alcoholicas" itemValue="3" />
+									<f:selectItem itemLabel="Botanas" itemValue="4" />
+									<f:selectItem itemLabel="Carnes" itemValue="5" />
+									<f:selectItem itemLabel="Dulceria" itemValue="6" />
+									<f:selectItem itemLabel="Enlatados" itemValue="7" />
+									<f:selectItem itemLabel="Farmacia" itemValue="8" />
+									<f:selectItem itemLabel="Harinas" itemValue="9" />
+									<f:selectItem itemLabel="Lacteos" itemValue="10" />
+									<f:selectItem itemLabel="Otros" itemValue="11" />
+									<p:ajax update="guardarEdicion" event="change" />
+								</p:selectOneMenu>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancelar</button>
+							<p:commandButton value="Guardar" class="btn btn-primary btn-sm"
+								id="guardarEdicion"
+								disabled="#{productoBean.nombreEdit eq '' || productoBean.cantidadEdit eq 0 || productoBean.cantidadEdit eq null || productoBean.precioCompraEdit eq 0 || productoBean.precioCompraEdit eq null || productoBean.precioVentaEdit eq 0 || productoBean.precioVentaEdit eq null || productoBean.departamentoEdit eq 0}"
+								action="#{productoBean.editarProducto}" process="@form"></p:commandButton>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Delete Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+		aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteModalLabel">
+						<i class="fas fa-exclamation-circle"></i> Eliminar Producto
+					</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">x</span>
+					</button>
+				</div>
+				<div class="modal-body">¿Desea eliminar este producto?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<p:commandButton value="Aceptar"
+						class="btn btn-outline-danger btn-sm"
+						action="#{productoBean.eliminarProducto}"></p:commandButton>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add Excel Modal-->
+	<div class="modal fade" id="addExcelModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Cargar Archivo</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<h:form id="fileForm" enctype="multipart/form-data">
+						<p:fileUpload value="#{fileBean.uploadedFile}" mode="simple"
+							id="fileUpload" allowTypes="/(\.|\/)(xls|xlsx)$/"
+							skinSimple="false" />
+						<p:commandButton value="Cargar" id="cargar"
+							action="#{fileBean.readExcelFile}" ajax="false"
+							icon="fas fa-file-upload" type="submit"
+							onclick="PF('cargar').disable()" class="btn btn-success btn-sm" />
+					</h:form>
+				</div>
+				<div style="padding: 1rem; border-top: 1px solid #e3e6f0;">
+					<p:commandButton class="btn btn-outline-secondary btn-sm"
+						style="float: left;" action="#{fileBean.clearForm}"
+						update="@([id$=fileUpload])"
+						oncomplete="$('#addExcelModal').modal('hide');" value="Cancelar" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+</html>

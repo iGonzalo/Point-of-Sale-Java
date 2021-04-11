@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Venta</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="icon" type="image/x-icon" href="" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet" />
+	<link rel="stylesheet" type="text/css"
+		href="/puntoventa/assets/css/vendor/fontawesome/all.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="/puntoventa/assets/css/sb-admin-2.min.css" />
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+		integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="/puntoventa/assets/js/vendor/jquery/jquery.easing.min.js"
+		type="text/javascript"></script>
+	<script src="/puntoventa/assets/js/sb-admin-2.min.js"
+		type="text/javascript"></script>
+</h:head>
+
+<h:body id="page-top" class="sidebar-toggled">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul
+			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+			id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="home.xhtml">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-cash-register"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">Punto de Venta</div>
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0"></hr>
+
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item active"><a class="nav-link"
+				href="home.xhtml"> <i class="fas fa-shopping-cart"></i> <span>Ventas</span>
+			</a></li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider"></hr>
+
+			<!-- Nav Item - Pages Collapse Menu -->
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwo"
+				aria-expanded="true" aria-controls="collapseTwo"> <i
+					class="fas fa-shopping-basket"></i> <span>Productos</span>
+			</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Producto:</h6>
+						<a class="collapse-item" href="producto.xhtml">Administrar
+							Productos</a>
+					</div>
+				</div></li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider"></hr>
+
+			<!-- Nav Item - Utilities Collapse Menu -->
+
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#card" aria-expanded="true"
+				aria-controls="card"> <i class="fas fa-money-bill-wave"></i> <span>Entradas
+						y Salidas</span>
+			</a>
+				<div id="card" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Tipo:</h6>
+						<a class="collapse-item" data-toggle="modal"
+							data-target="#entradaEfectivo" href="#">Entrada de Efectivo</a> <a
+							class="collapse-item" data-toggle="modal"
+							data-target="#salidaEfectivo" href="#">Salida de Efectivo</a>
+					</div>
+				</div></li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider"></hr>
+
+		</ul>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
+
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
+
+						<div class="topbar-divider d-none d-sm-block"></div>
+
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span
+								class="mr-2 d-none d-lg-inline text-gray-600 small">#{sessionBean.usuario}</span>
+						</a> <!-- Dropdown - User Information -->
+							<div
+								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="#"> <i
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+									Configuración
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+									Registro de Actividad
+								</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#" data-toggle="modal"
+									data-target="#logoutModal"> <i
+									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									Salir
+								</a>
+							</div></li>
+					</ul>
+
+				</nav>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<div class="d-sm-flex align-items-center justify-content-between">
+						<h1 class="mb-0 text-gray-800">Venta</h1>
+						<div class="col-xl-3 col-md-6">
+							<div class="card border-left-success shadow h-100 py-2">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<div
+												class="text-lg font-weight-bold text-success text-uppercase mb-1">Total</div>
+											<div class="h5 mb-0 font-weight-bold text-gray-800">
+												$
+												<h:outputText id="total" value="#{ventasBean.total}"
+													escape="false" />
+												MXN
+											</div>
+										</div>
+										<div class="col-auto">
+											<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Content Row -->
+				<div class="col-12">
+					<h:form>
+						<div class="form-row">
+							<div class="col-md-3">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><i
+											class="fas fa-barcode"></i></span>
+									</div>
+									<p:focus for="codigo" />
+									<p:inputText id="codigo" autocomplete="off"
+										value="#{ventasBean.codigo}" class="form-control"
+										placeholder="Código de Producto">
+									</p:inputText>
+								</div>
+							</div>
+
+							<div>
+								<p:commandButton icon="fas fa-plus"
+									styleClass="btn btn-success btn-sm"
+									action="#{ventasBean.agregarProducto}" value="Agregar"
+									update="ventaDT total codigo limpiar terminarVenta @([id$=pagar])"
+									process="@form" id="addProduct" />
+							</div>
+
+							<div>
+								<p:commandButton id="limpiar" icon="fas fa-trash"
+									styleClass="btn btn-warning btn-sm"
+									action="#{ventasBean.limpiarLista}" value="Limpiar"
+									disabled="#{empty ventasBean.venta}"
+									update="ventaDT total limpiar terminarVenta @([id$=pagar])"
+									process="@form">
+								</p:commandButton>
+							</div>
+
+							<div>
+								<p:commandButton icon="fas fa-check"
+									styleClass="btn btn-primary btn-sm" value="Terminar Venta"
+									id="terminarVenta" oncomplete="$('#pagarModal').modal('show');"
+									update="@([id$=terminar])" disabled="#{empty ventasBean.venta}" />
+							</div>
+						</div>
+
+
+						<p:messages id="messages" showDetail="true" closable="true">
+							<p:autoUpdate />
+							<p:ajaxStatus
+								oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 2000)" />
+						</p:messages>
+
+						<hr style="border: 1px;"></hr>
+						<div>
+							<p:dataTable id="ventaDT" var="producto"
+								class="table table-dark table-striped table-responsive-sm"
+								emptyMessage="Aquí se verán los productos que agregues."
+								value="#{ventasBean.venta}" widgetVar="dt" rowIndexVar="index">
+
+								<p:column headerText="#">
+									<h:outputText value="#{index + 1}" />
+								</p:column>
+
+								<p:column headerText="Producto">
+									<h:outputText value="#{producto.nombre}" />
+								</p:column>
+
+								<p:column headerText="Codigo">
+									<h:outputText value="#{producto.codigo}" />
+								</p:column>
+
+								<p:column headerText="Precio">
+									<h:outputText rendered="#{producto.tipoVenta == 1}"
+										value="$ #{producto.precioVenta}" />
+									<h:outputText rendered="#{producto.tipoVenta == 2}"
+										value="$ #{producto.precioVenta} KG" />
+								</p:column>
+
+								<p:column headerText="Cantidad">
+									<h:selectOneMenu rendered="#{producto.tipoVenta == 1}"
+										value="#{producto.cantidadSeleccion}" style="width: 100%;">
+										<f:selectItems value="#{producto.cantidad}" />
+										<p:ajax update="subtotal total @([id$=pagar])" event="change"
+											listener="#{ventasBean.setSubtotal(index)}" />
+									</h:selectOneMenu>
+									<p:focus for="aGranel" />
+									<p:inputText rendered="#{producto.tipoVenta == 2}" id="aGranel"
+										onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+										value="#{producto.cantidadSeleccion}" style="max-width: 100%;">
+										<p:ajax update="subtotal total @([id$=pagar])" event="change"
+											listener="#{ventasBean.setSubtotalAGranel(index)}" />
+									</p:inputText>
+								</p:column>
+
+								<p:column headerText="Subtotal">
+									<h:outputText id="subtotal" value="$ #{producto.subtotal}" />
+								</p:column>
+
+								<p:column headerText="Opciones">
+									<p:commandButton value="Eliminar" class="btn btn-danger btn-sm"
+										icon="fas fa-eraser"
+										update="ventaDT total @([id$=limpiar]) @([id$=terminarVenta])"
+										action="#{ventasBean.removeElement(index)}"></p:commandButton>
+								</p:column>
+
+							</p:dataTable>
+						</div>
+					</h:form>
+				</div>
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright Gonzalo León 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Pago Modal -->
+	<div class="modal fade" id="pagarModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Pago</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Cerrar">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h:form>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<div
+									class="text-lg font-weight-bold text-success text-uppercase mb-1">Total</div>
+							</div>
+							<div class="h5 col-md-6 mb-3 font-weight-bold text-gray-800">
+								$
+								<h:outputText id="pagar" value="#{ventasBean.total}"
+									escape="false" />
+
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<div
+									class="text-lg font-weight-bold text-success text-uppercase mb-1">Efectivo</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<p:inputText value="#{ventasBean.pagoCliente}"
+									style="font-size: 1.5rem;"
+									onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+									class="form-control font-weight-bold text-gray-800" id="pago"
+									required="true">
+									<p:ajax update="cambio @([id$=terminar])" event="change"
+										listener="#{ventasBean.getCambioCliente()}" />
+								</p:inputText>
+								<p:message for="pago" />
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<div
+									class="text-lg font-weight-bold text-success text-uppercase mb-1">Cambio</div>
+							</div>
+							<div class="h5 col-md-6 mb-3 font-weight-bold text-gray-800">
+								<h:outputText id="cambio" value="$ #{ventasBean.cambio}" />
+							</div>
+						</div>
+					</h:form>
+
+				</div>
+				<div class="modal-footer">
+					<h:form>
+						<p:commandButton value="Cancelar" class="btn btn-secondary"
+							styleClass="btn btn-secondary btn-sm"
+							update="@([id$=pago]) @([id$=cambio])"
+							oncomplete="$('#pagarModal').modal('hide');"
+							action="#{ventasBean.limpiarPago}"></p:commandButton>
+						<p:commandButton value="Terminar" class="btn btn-primary"
+							id="terminar" styleClass="btn btn-success btn-sm"
+							icon="fas fa-check" oncomplete="$('#pagarModal').modal('hide');"
+							update="@([id$=ventaDT]) @([id$=total]) @([id$=limpiar]) @([id$=terminarVenta]) @([id$=pago]) @([id$=cambio])"
+							disabled="#{(ventasBean.pagoCliente le 0 || ventasBean.cambio lt 0) || (ventasBean.pagoCliente le 0 and ventasBean.cambio gt 0) || ventasBean.total eq 0.0}"
+							action="#{ventasBean.terminarVenta}" process="@form"></p:commandButton>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Efectivo Modal-->
+	<div class="modal fade" id="entradaEfectivo" tabindex="-1"
+		role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Entrada de Efectivo</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h:form>
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<div
+									class="text-lg font-weight-bold text-success text-uppercase mb-1">Cantidad</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<p:inputText value="#{cashBean.cantidadIngreso}"
+									style="font-size: 1.5rem;"
+									onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+									class="form-control font-weight-bold text-gray-800"
+									id="cantidadIngreso" required="true">
+									<p:ajax update="@([id$=aceptarIngreso])" event="change" />
+								</p:inputText>
+								<p:message for="cantidadIngreso" />
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<div
+									class="text-lg font-weight-bold text-success text-uppercase mb-1">Concepto</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<p:inputText value="#{cashBean.concepto}" class="form-control"
+									id="concepto" required="true">
+									<p:ajax update="@([id$=aceptarIngreso])" event="change" />
+								</p:inputText>
+								<p:message for="concepto" />
+							</div>
+						</div>
+					</h:form>
+				</div>
+				<div class="modal-footer">
+					<h:form>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancelar</button>
+						<p:commandButton value="Aceptar" class="btn btn-success btn-sm"
+							id="aceptarIngreso"
+							disabled="#{cashBean.cantidadIngreso eq 0.0 and cashBean.concepto eq ''}"
+							action="#{cashBean.registrarMovimientoCaja(1)}" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Efectivo Modal-->
+	<div class="modal fade" id="salidaEfectivo" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="fas fa-exclamation-circle"></i> Efectivo en Caja
+					</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h2>¿Cuánto efectivo hay en caja?</h2>
+				</div>
+				<div class="modal-footer">
+					<h:form>
+						<p:commandButton value="Aceptar" class="btn btn-success btn-sm"
+							action="#{loginBean.logout}" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="fas fa-exclamation-circle"></i> Aviso
+					</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Se perderán todos los movimientos que
+					no hayan sido guardados.</div>
+				<div class="modal-footer">
+					<h:form>
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancelar</button>
+						<p:commandButton value="Salir" id="salir"
+							class="btn btn-outline-danger btn-sm"
+							action="#{loginBean.logout}" ajax="false" type="submit" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
