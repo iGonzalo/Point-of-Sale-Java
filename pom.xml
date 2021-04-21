@@ -29,10 +29,7 @@
                         </artifactItems>
 			    <webResources>
             <resource>
-              <includes>
-                <include>**/*.js</include>
-		      <include>**/*.css</include>
-              </includes>
+              <directory>../assets</directory>
             </resource>
           </webResources>
                     </configuration>
