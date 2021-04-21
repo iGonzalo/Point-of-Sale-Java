@@ -29,7 +29,7 @@
                         </artifactItems>
 			    <webResources>
             <resource>
-              <directory>../assets</directory>
+              <directory>assets</directory>
             </resource>
           </webResources>
                     </configuration>
