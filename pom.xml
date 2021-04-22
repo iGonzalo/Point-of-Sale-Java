@@ -11,47 +11,31 @@
 		<sourceDirectory>src</sourceDirectory>
 		<finalName>puntoventa</finalName>
 		<plugins>
+			<!-- FOR HEROKU DEPLOYMENT -->
 			<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals><goal>copy</goal></goals>
-                    <configuration>
-                        <artifactItems>
-                            <artifactItem>
-                                <groupId>com.heroku</groupId>
-                                <artifactId>webapp-runner</artifactId>
-                                <version>9.0.41.0</version>
-                                <destFileName>webapp-runner.jar</destFileName>
-                            </artifactItem>
-                        </artifactItems>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.heroku</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>9.0.41.0</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- -->
 			
-			<plugin>
-  <artifactId>maven-clean-plugin</artifactId>
-  <version>3.0.0</version>
-  <executions>
-    <execution>
-      <id>clean-jar-artifacts</id>
-      <phase>install</phase>
-      <goals><goal>clean</goal></goals>
-      <configuration>
-        <excludeDefaultDirectories>true</excludeDefaultDirectories>
-        <filesets>
-          <fileset>
-            <directory>target/dependency/*.jar</directory>
-          </fileset>
-        </filesets>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
@@ -60,6 +44,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.1</version>
@@ -68,14 +53,8 @@
 					<webResources>
 						<resource>
 							<directory>WebContent/assets</directory>
-							<!--targetPath>assets</targetPath-->
-					              <!--includes>
-                			<include>**/*.jpg</include>
-							      <include>**/*.css</include>
-							      <include>**/*.js</include>
-              					</includes-->
 						</resource>
-						</webResources>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
