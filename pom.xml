@@ -67,6 +67,7 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<webResources>
 						<resource>
+							<directory>src/main/resources</directory>
 							<targetPath>assets</targetPath>
 					              <!--includes>
                 			<include>**/*.jpg</include>
