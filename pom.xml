@@ -67,7 +67,7 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<webResources>
 						<resource>
-							<directory>puntoventa/assets</directory>
+							<directory>WebContent/assets</directory>
 							<!--targetPath>assets</targetPath-->
 					              <!--includes>
                 			<include>**/*.jpg</include>
