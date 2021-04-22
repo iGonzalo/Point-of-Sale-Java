@@ -15,9 +15,11 @@ import com.puntoventa.model.Producto;
 
 @RequestScoped
 public class TicketService {
+	
+	private PrintService printService = PrinterOutputStream.getPrintServiceByName("EPSON TM-T88V");
 
 	@SuppressWarnings("deprecation")
-	public void printTicket(PrintService printService, List<Producto> venta, Float total, Float pagoCliente, Float cambio) {
+	public void printTicket(List<Producto> venta, Float total, Float pagoCliente, Float cambio) {
 		try {
 			System.out.println(printService);
 			PrinterOutputStream printerOutputStream = new PrinterOutputStream(printService);
@@ -31,7 +33,7 @@ public class TicketService {
 			for (int i = 0; i < venta.size(); i++) {
 				if (venta.get(i).getTipoVenta() == 1) {
 					escpos.writeLF(venta.get(i).getNombre() + "   $ " + venta.get(i).getPrecioVenta() + "   "
-							+ venta.get(i).getCantidadSeleccion() + "   $ " + venta.get(i).getSubtotal());
+							+ venta.get(i).getCantidadSeleccion().intValue() + "   $ " + venta.get(i).getSubtotal());
 				} else {
 					escpos.writeLF(venta.get(i).getNombre() + "   $ " + venta.get(i).getPrecioVenta() + " kg" + "   "
 							+ venta.get(i).getCantidadSeleccion() + " gr" + "   $ " + venta.get(i).getSubtotal());
@@ -39,9 +41,12 @@ public class TicketService {
 			}
 			escpos.feed(1);
 			escpos.writeLF("----------------------------------------");
+			escpos.feed(1);
 			escpos.writeLF("TOTAL                           $ " + total);
 			escpos.writeLF("EFECTIVO                        $ " + pagoCliente);
 			escpos.writeLF("CAMBIO                          $ " + cambio);
+			escpos.feed(2);
+			escpos.writeLF("********* GRACIAS POR SU COMPRA *********");
 			escpos.feed(4).cut(EscPos.CutMode.FULL);
 			// escpos.pulsePin(PinConnector.Pin_2, 120, 240);
 			escpos.close();

@@ -11,6 +11,31 @@
 		<sourceDirectory>src</sourceDirectory>
 		<finalName>puntoventa</finalName>
 		<plugins>
+			<!-- FOR HEROKU DEPLOYMENT -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.heroku</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>9.0.41.0</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- -->
+			
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
@@ -19,11 +44,17 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.1</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
+					<webResources>
+						<resource>
+							<directory>WebContent/assets</directory>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
