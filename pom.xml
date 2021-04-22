@@ -65,17 +65,17 @@
 				<version>3.2.1</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
-					<!--webResources>
+					<webResources>
 						<resource>
-							<directory>src/main/resources</directory>
-							<targetPath>assets</targetPath>
-					              <includes>
+							<directory>WebContent/assets/</directory>
+							<!--targetPath>assets</targetPath-->
+					              <!--includes>
                 			<include>**/*.jpg</include>
 							      <include>**/*.css</include>
 							      <include>**/*.js</include>
-              					</includes>
+              					</includes-->
 						</resource>
-						</webResources-->
+						</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
