@@ -4,15 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.print.PrintService;
-
-import com.github.anastaciocintra.output.PrinterOutputStream;
 
 //import org.primefaces.PrimeFaces;
 
@@ -40,7 +36,6 @@ public class VentasBean implements Serializable {
 	private ProductoService productoService = new ProductoService();
 	private VentaService ventaService = new VentaService();
 	private TicketService ticketService = new TicketService();
-	private PrintService printService;
 	private Producto producto = new Producto();
 	private List<Float> cantidad;
 	private Float cantidadSel;
@@ -128,10 +123,10 @@ public class VentasBean implements Serializable {
 		return cambio;
 	}
 
-	@PostConstruct
-	public void init() {
-		//printService = PrinterOutputStream.getPrintServiceByName("EPSON TM-T88V");
-	}
+//	@PostConstruct
+//	public void init() {
+//		printService = PrinterOutputStream.getPrintServiceByName("EPSON TM-T88V");
+//	}
 
 	public void agregarProducto() {
 		if (codigo != null && !codigo.equals("")) {
@@ -163,8 +158,11 @@ public class VentasBean implements Serializable {
 					}
 				} else {
 					codigo = "";
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "El producto ya se ha agregado."));
+//					venta.
+//					producto.setCantidadSeleccion(producto.getCantidadSeleccion() + 1.0f);
+					setTotal();
+//					FacesContext.getCurrentInstance().addMessage(null,
+//							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "El producto ya se ha agregado."));
 				}
 			} else {
 				codigo = "";
@@ -223,7 +221,7 @@ public class VentasBean implements Serializable {
 		if (!venta.isEmpty() || venta.size() > 0) {
 			int detalleVenta = ventaService.generarDetalleVenta(total, session.getSucursal(), session.getIdUsuario());
 			ventaService.registrarVenta(venta, detalleVenta);
-			ticketService.printTicket(printService, venta, total, pagoCliente, cambio);
+			ticketService.printTicket(venta, total, pagoCliente, cambio);
 			limpiarLista();
 			limpiarPago();
 		}
