@@ -30,6 +30,12 @@
 									<destFileName>webapp-runner.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
+							<fileset>
+  <directory>target</directory>
+  <excludes>
+    <exclude>*.war</exclude>
+  </excludes>
+</fileset>
 						</configuration>
 					</execution>
 				</executions>
