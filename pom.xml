@@ -67,12 +67,12 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 					<webResources>
 						<resource>
-							<directory>puntoventa/assets</directory>
-					              <includes>
+							<targetPath>assets</targetPath>
+					              <!--includes>
                 			<include>**/*.jpg</include>
 							      <include>**/*.css</include>
 							      <include>**/*.js</include>
-              					</includes>
+              					</includes-->
 						</resource>
 						</webResources>
 				</configuration>
