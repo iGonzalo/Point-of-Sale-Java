@@ -129,9 +129,9 @@ public class VentasBean implements Serializable {
 //	}
 
 	public void agregarProducto() {
-		if (codigo != null && !codigo.equals("")) {
+		if (Util.isNotNullOrEmpty(codigo)) {
 			producto = productoService.findProductoByCodigo(codigo.toUpperCase(), session.getSucursal());
-			if (producto != null) {
+			if (Util.isNotNull(producto)) {
 				if (!Util.isCodigoInList(venta, producto.getCodigo())) {
 					if (producto.getCantidadDisponible() >= 1) {
 						if (producto.getTipoVenta() == 1) {
@@ -173,7 +173,9 @@ public class VentasBean implements Serializable {
 	}
 
 	public void removeElement(int index) {
-		total = total - venta.get(index).getSubtotal();
+		if(Util.isNotNull(venta.get(index).getSubtotal())) {
+			total = total - venta.get(index).getSubtotal();
+		}
 		venta.remove(index);
 	}
 
@@ -202,7 +204,7 @@ public class VentasBean implements Serializable {
 	}
 
 	public void limpiarLista() {
-		if (venta != null) {
+		if (Util.isNotNullOrEmpty(venta)) {
 			venta = new ArrayList<Producto>();
 			total = 0.0f;
 		}
@@ -218,7 +220,7 @@ public class VentasBean implements Serializable {
 	}
 
 	public void terminarVenta() {
-		if (!venta.isEmpty() || venta.size() > 0) {
+		if (Util.isNotNullOrEmpty(venta)) {
 			int detalleVenta = ventaService.generarDetalleVenta(total, session.getSucursal(), session.getIdUsuario());
 			ventaService.registrarVenta(venta, detalleVenta);
 			ticketService.printTicket(venta, total, pagoCliente, cambio);

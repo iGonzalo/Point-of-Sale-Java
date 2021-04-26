@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <f:view contentType="text/html">
+
 	<h:head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
@@ -11,17 +12,19 @@
 
 		<link rel="icon" type="image/x-icon" href="" />
 
-		<link rel="stylesheet" type="text/css"
-			href="./css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="./css/styles.css" />
 		<link rel="stylesheet" type="text/css"
 			href="./css/vendor/fontawesome/all.min.css" />
 		<link rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 			crossorigin="anonymous" />
+
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"
 			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 			crossorigin="anonymous"></script>
+		<script src="./js/vendor/jquery/jquery.easing.min.js"
+			type="text/javascript"></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 			integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -30,14 +33,14 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 			crossorigin="anonymous"></script>
-		<!--<script src="/puntoventa/assets/js/login.js" type="text/javascript"></script>-->
+		<script src="./js/login.js" type="text/javascript"></script>
 
-		<title>Inicio</title>
+		<title>Punto de Venta</title>
 	</h:head>
 
 	<h:body>
 		<div class="login-form">
-			<h:form>
+			<h:form id="loginForm">
 				<p:growl id="growl" showDetail="true" sticky="false" life="3000"
 					severity="error" />
 				<div class="avatar">
@@ -46,24 +49,27 @@
 				<h4 class="modal-title">Iniciar Sesión</h4>
 				<div class="form-group">
 					<p:inputText id="usuario" value="#{loginBean.usuario}"
-						class="form-control" placeholder="Usuario" autocomplete="false"
-						required="required" />
+						style="width: 89%;" class="form-control" placeholder="Usuario"
+						autocomplete="false" required="required" />
+					<h:outputText id="userMessage" value="Este campo es requerido."
+						class="errorMessage" style="display: none;"></h:outputText>
 				</div>
 				<div class="form-group">
-					<p:password id="password" value="#{loginBean.password}"
-						class="form-control" placeholder="Contraseña" autocomplete="false"
-						required="required" />
+					<div class="flx">
+						<p:password id="password" value="#{loginBean.password}"
+							class="form-control" placeholder="Contraseña"
+							autocomplete="false" required="required" />
+						<button id="hide" class="fas fa-eye" type="button"></button>
+					</div>
+					<h:outputText id="passMessage" value="Este campo es requerido."
+						class="errorMessage" style="display: none;"></h:outputText>
 				</div>
 				<p:commandButton value="Ingresar" id="ingresar"
-					class="btn btn-primary btn-block btn-lg"
-					action="#{loginBean.login}" style="margin-right:20px;" ajax="false"
-					type="submit" />
-				<!-- <p:messages id="messages" showDetail="true" closable="true" life="3000">
-					<p:autoUpdate />
-				</p:messages>  -->
-				<!--<input type="button" onclick="saludo();" class="btn btn-primary" value="Saludar" />-->
+					class="btn btn-primary btn-block btn-lg mr"
+					action="#{loginBean.login}" ajax="false" type="submit" />
 			</h:form>
 		</div>
 	</h:body>
+
 </f:view>
 </html>

@@ -15,6 +15,7 @@ public final class Constants {
 
 	// MESSAGES CONSTANTS
 	public static final String BAD_CREDENTIALS = "Credenciales inválidas.";
+	public static final String EMPTY_CREDENTIALS = "Los campos de usuario y contraseña son requeridos.";
 
 	// DATABASE CONSTANTS
 	public static final String DB_DRIIVER = "com.mysql.cj.jdbc.Driver";

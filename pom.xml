@@ -30,12 +30,6 @@
 									<destFileName>webapp-runner.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
-							<fileset>
-  <directory>target</directory>
-  <excludes>
-    <exclude>*.war</exclude>
-  </excludes>
-</fileset>
 						</configuration>
 					</execution>
 				</executions>
@@ -107,7 +101,7 @@
 		<dependency>
 			<groupId>com.github.anastaciocintra</groupId>
 			<artifactId>escpos-coffee</artifactId>
-			<version>4.0.1</version>
+			<version>4.0.3</version>
 		</dependency>
 
 		<dependency>
