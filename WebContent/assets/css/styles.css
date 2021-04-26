@@ -81,3 +81,26 @@ body {
 .login-form .btn:hover, .login-form .btn:focus {
 	background: #42ae68;
 }
+
+.ui-growl-item-container {
+	background-color: firebrick;
+	color: azure;
+}
+
+.mr {
+	margin-right: 20px;
+}
+
+.flx {
+	display: flex;
+}
+
+.errorMessage {
+	color: red;
+}
+
+#hide {
+	background: none;
+    border: none;
+    outline: none;
+}

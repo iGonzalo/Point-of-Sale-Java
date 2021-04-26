@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import com.puntoventa.model.Usuario;
 import com.puntoventa.services.UsuarioService;
 import com.puntoventa.utilities.Constants;
+import com.puntoventa.utilities.Util;
 
 @ManagedBean(name = "loginBean")
 @RequestScoped
@@ -43,19 +44,16 @@ public class LoginBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		UsuarioService usuarioService = new UsuarioService();
 
-		if (!usuario.trim().equals("") && !password.trim().equals("")) {
+		if (Util.isNotEmpty(usuario.trim()) && Util.isNotEmpty(password.trim())) {
 			Usuario usuarioReturn = usuarioService.login(usuario, password);
-			if (usuarioReturn != null) {
+			if (Util.isNotNull(usuarioReturn)) {
 				context.getExternalContext().getSessionMap().put(Constants.USER_SESSION, usuarioReturn.getUsername());
 				context.getExternalContext().getSessionMap().put(Constants.USER_ID, usuarioReturn.getId());
 				context.getExternalContext().getSessionMap().put(Constants.USER_ROL, usuarioReturn.getRol());
 				context.getExternalContext().getSessionMap().put(Constants.SUCURSAL, usuarioReturn.getSucursal());
 				try {
-					if (usuarioReturn.getRol() == 1) {
-						context.getExternalContext().redirect(Constants.ADMIN_PATH);
-					} else {
-						context.getExternalContext().redirect(Constants.HOME_PATH);
-					}
+					context.getExternalContext()
+							.redirect(usuarioReturn.getRol() == 1 ? Constants.ADMIN_PATH : Constants.HOME_PATH);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

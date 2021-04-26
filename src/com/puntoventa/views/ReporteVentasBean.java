@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import com.puntoventa.model.DetalleVenta;
 import com.puntoventa.model.ProductoVendido;
 import com.puntoventa.services.VentaService;
+import com.puntoventa.utilities.Util;
 
 @ManagedBean(name = "reporteVentasBean")
 @ViewScoped
@@ -101,7 +102,7 @@ public class ReporteVentasBean implements Serializable {
 	public void setList() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		detalle = ventaService.getDetalleVenta(format.format(date), session.getSucursal());
-		if (!detalle.isEmpty()) {
+		if (Util.isNotNullOrEmpty(detalle)) {
 			total = 0.0f;
 			for (int i = 0; i < detalle.size(); i++) {
 				total += detalle.get(i).getTotal();

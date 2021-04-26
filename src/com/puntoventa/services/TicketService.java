@@ -21,7 +21,7 @@ public class TicketService {
 	@SuppressWarnings("deprecation")
 	public void printTicket(List<Producto> venta, Float total, Float pagoCliente, Float cambio) {
 		try {
-			System.out.println(printService);
+			//System.out.println(printService);
 			PrinterOutputStream printerOutputStream = new PrinterOutputStream(printService);
 			EscPos escpos = new EscPos(printerOutputStream);
 			Style title = new Style().setFontSize(Style.FontSize._2, Style.FontSize._2)
@@ -53,7 +53,7 @@ public class TicketService {
 
 		} catch (IOException ex) {
 			System.out.println("ERROR: " + ex.getStackTrace());
-		}
+		} 
 	}
 
 }
