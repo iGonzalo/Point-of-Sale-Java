@@ -24,6 +24,8 @@
 		crossorigin="anonymous"></script>
 	<script src="./js/sb-admin-2.min.js"
 		type="text/javascript"></script>
+	<script src="./js/producto.js"
+		type="text/javascript"></script>
 
 	<!-- style type="text/css">
 .ui-datatable .ui-datatable-header {
@@ -49,37 +51,6 @@
 	width: 1px;
 }
 </style>
-
-	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					var $rows = $('table tbody tr');
-					$('#search').keyup(
-							function() {
-								var val = $.trim($(this).val()).replace(/ +/g,
-										' ').toLowerCase();
-
-								$rows.show().filter(
-										function() {
-											var text = $(this).text().replace(
-													/\s+/g, ' ').toLowerCase();
-											return !~text.indexOf(val);
-										}).hide();
-							});
-				});
-
-		function closeModal() {
-			$('#addModal').modal('hide');
-		}
-
-		function editModal() {
-			$('#editModal').modal('show');
-		}
-
-		function deleteModal() {
-			$('#deleteModal').modal('show');
-		}
-	</script>
 
 </h:head>
 
@@ -283,15 +254,15 @@
 								</p:column>
 
 								<p:column headerText="Opciones">
-
+								   <div style="display: flex; justify-content: space-around;">
 									<p:commandButton value="Editar" class="btn btn-primary btn-sm"
 										action="#{productoBean.setEditarProducto(index)}"
-										icon="fas fa-edit" oncomplete="editModal();"
+										icon="fas fa-edit" id="editProduct"
 										update=":editForm"></p:commandButton>
 									<p:commandButton value="Eliminar" class="btn btn-danger btn-sm"
-										oncomplete="deleteModal();" icon="fas fa-eraser"
+										oncomplete="openModal(2);" icon="fas fa-eraser"
 										action="#{productoBean.setEliminarProducto(index)}"></p:commandButton>
-
+									</div>
 								</p:column>
 
 							</p:dataTable>
@@ -388,7 +359,7 @@
 											class="fas fa-barcode"></i></span>
 									</div>
 									<p:inputText id="codigo" autocomplete="off" required="true"
-										value="#{productoBean.codigo}" class="form-control">
+										value="#{productoBean.codigo}" class="form-control add">
 										<p:ajax update="guardar" event="change" />
 									</p:inputText>
 								</div>

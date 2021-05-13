@@ -16,8 +16,12 @@ public class Util {
 		return false;
 	}
 	
+	public static boolean isEquals(String string1, String string2) {
+		return string1.equals(string2);
+	}
+	
 	public static boolean isNotNull(Object object) {
-		return !object.equals(null);
+		return object != null;
 	}
 	
 	public static boolean isNotEmpty(String string) {
@@ -25,7 +29,7 @@ public class Util {
 	}
 	
 	public static boolean isNotNullOrEmpty(String string) {
-		return !string.equals(null) && !string.isEmpty();
+		return isNotNull(string) && isNotEmpty(string);
 	}
 	
 	public static boolean isNotNullOrEmpty(Collection<?> collection) {

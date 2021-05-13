@@ -244,7 +244,7 @@
 						<p:messages id="messages" showDetail="true" closable="true">
 							<p:autoUpdate />
 							<p:ajaxStatus
-								oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 2000)" />
+								oncomplete="setTimeout(function() { $('.ui-messages').slideUp(); }, 3000)" />
 						</p:messages>
 
 						<hr style="border: 1px;"></hr>
@@ -362,9 +362,10 @@
 									class="text-lg font-weight-bold text-success text-uppercase mb-1">Efectivo</div>
 							</div>
 							<div class="col-md-6 mb-3">
-								<p:inputText value="#{ventasBean.pagoCliente}"
+									<!-- onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"-->
+								<p:inputText value="#{ventasBean.pagoCliente}" autocomplete="off"
 									style="font-size: 1.5rem;" autofocus="true"
-									onkeyup="$(this).val($(this).val().replace(/[^\d+(\.{1}\d+)?$]/g, ''));"
+									onkeyup="$(this).val($(this).val().replace(/[^\d,.]+/g,''));" 
 									class="form-control font-weight-bold text-gray-800 pay" id="pago"
 									required="true">
 									<p:ajax update="cambio @([id$=terminar])" event="keyup"

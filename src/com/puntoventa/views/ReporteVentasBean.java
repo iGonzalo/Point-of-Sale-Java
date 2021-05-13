@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import com.puntoventa.model.DetalleVenta;
 import com.puntoventa.model.ProductoVendido;
 import com.puntoventa.services.VentaService;
+import com.puntoventa.utilities.Constants;
 import com.puntoventa.utilities.Util;
 
 @ManagedBean(name = "reporteVentasBean")
@@ -111,7 +112,7 @@ public class ReporteVentasBean implements Serializable {
 		} else {
 			total = 0.0f;
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso: ",
-					"La consulta no produjo resultados, intente con otra fecha."));
+					Constants.NO_RESULTS));
 		}
 	}
 

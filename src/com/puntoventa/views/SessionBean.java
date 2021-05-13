@@ -7,6 +7,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import com.puntoventa.utilities.Constants;
+
 @ManagedBean(name = "sessionBean")
 @SessionScoped
 public class SessionBean implements Serializable {
@@ -56,10 +58,10 @@ public class SessionBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		usuario = context.getExternalContext().getSessionMap().get("usuario").toString();
-		idUsuario = Long.parseLong(context.getExternalContext().getSessionMap().get("id").toString());
-		rolUsuario = Integer.parseInt(context.getExternalContext().getSessionMap().get("rol").toString());
-		sucursal = Integer.parseInt(context.getExternalContext().getSessionMap().get("sucursal").toString());
+		usuario = context.getExternalContext().getSessionMap().get(Constants.USER_SESSION).toString();
+		idUsuario = Long.parseLong(context.getExternalContext().getSessionMap().get(Constants.USER_ID).toString());
+		rolUsuario = Integer.parseInt(context.getExternalContext().getSessionMap().get(Constants.USER_ROL).toString());
+		sucursal = Integer.parseInt(context.getExternalContext().getSessionMap().get(Constants.SUCURSAL).toString());
 	}
 
 }

@@ -15,6 +15,7 @@ import org.primefaces.PrimeFaces;
 
 import com.puntoventa.model.Producto;
 import com.puntoventa.services.ProductoService;
+import com.puntoventa.utilities.Constants;
 
 @ManagedBean(name = "productoBean")
 @ViewScoped
@@ -195,7 +196,7 @@ public class ProductoBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		productos = productoService.listAll(session.getSucursal());
-		PrimeFaces.current().executeScript("$('.ui-helper-hidden-accessible :input[type=text]').hide()");
+		PrimeFaces.current().executeScript(Constants.HELPER_HIDE);
 	}
 
 	public void guardarProducto() {
@@ -210,7 +211,7 @@ public class ProductoBean implements Serializable {
 			producto.setTipoVenta(tipoVenta);
 			producto.setSucursal(session.getSucursal());
 			productoService.guardarProducto(producto);
-			PrimeFaces.current().executeScript("window.location.href = window.location.href;");
+			PrimeFaces.current().executeScript(Constants.RELOAD_PAGE);
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "El producto ya existe."));
@@ -237,7 +238,7 @@ public class ProductoBean implements Serializable {
 		productoEdit.setTipoVenta(tipoVentaEdit);
 		productoEdit.setDepartamento(departamentoEdit);
 		productoService.editarProducto(productoEdit);
-		PrimeFaces.current().executeScript("window.location.href = window.location.href;");
+		PrimeFaces.current().executeScript(Constants.RELOAD_PAGE);
 	}
 
 	public void setEliminarProducto(int index) {
@@ -246,7 +247,7 @@ public class ProductoBean implements Serializable {
 
 	public void eliminarProducto() {
 		productoService.eliminarProducto(idDelete, session.getSucursal());
-		PrimeFaces.current().executeScript("window.location.href = window.location.href;");
+		PrimeFaces.current().executeScript(Constants.RELOAD_PAGE);
 	}
 
 }

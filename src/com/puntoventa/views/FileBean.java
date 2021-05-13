@@ -1,13 +1,14 @@
 package com.puntoventa.views;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -19,6 +20,7 @@ import org.primefaces.model.UploadedFile;
 
 import com.puntoventa.model.Producto;
 import com.puntoventa.services.ProductoService;
+import com.puntoventa.utilities.Constants;
 import com.puntoventa.utilities.IOUtil;
 
 @ManagedBean(name = "fileBean")
@@ -44,6 +46,7 @@ public class FileBean implements Serializable {
 
 	public void readExcelFile() {
 		XSSFWorkbook workbook = null;
+		
 		try {
 			workbook = new XSSFWorkbook(uploadedFile.getInputstream());
 			XSSFSheet sheet = workbook.getSheetAt(0);
@@ -91,11 +94,12 @@ public class FileBean implements Serializable {
 				productoService.saveOrUpdateProducto(producto);
 			}
 
-			PrimeFaces.current().executeScript("window.location.href = window.location.href;");
+			PrimeFaces.current().executeScript(Constants.RELOAD_PAGE);
 
-		} catch (IOException e) {
-			System.out.println("Ocurrió un error durante la lectura del archivo.");
-			IOUtil.close(workbook);
+		} catch (Exception e) {
+			System.out.println("ERROR: " + e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", Constants.READ_FILE_ERROR));
 		} finally {
 			IOUtil.close(workbook);
 		}

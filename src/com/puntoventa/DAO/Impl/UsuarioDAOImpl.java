@@ -12,24 +12,24 @@ import com.puntoventa.utilities.Database;
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
-	public Usuario login(String usuario, String password) {
+	public Usuario login(String user, String password) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Usuario usuarioReturn = null;
+		Usuario usuario = null;
 		try {
 			connection = Database.getConnection();
 			preparedStatement = connection.prepareStatement(Constants.USER_STATEMENT);
-			preparedStatement.setString(1, usuario);
+			preparedStatement.setString(1, user);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				usuarioReturn = new Usuario();
-				usuarioReturn.setId(resultSet.getLong(1));
-				usuarioReturn.setUsername(resultSet.getString(2));
-				usuarioReturn.setPassword(resultSet.getString(3));
-				usuarioReturn.setRol(resultSet.getInt(4));
-				usuarioReturn.setSucursal(resultSet.getInt(5));
+				usuario = new Usuario();
+				usuario.setId(resultSet.getLong(1));
+				usuario.setUsername(resultSet.getString(2));
+				usuario.setPassword(resultSet.getString(3));
+				usuario.setRol(resultSet.getInt(4));
+				usuario.setSucursal(resultSet.getInt(5));
 			}
 		} catch (Exception e) {
 			System.out.println("Login Error: " + e.getMessage());
@@ -38,7 +38,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			Database.close(preparedStatement);
 			Database.close(connection);
 		}
-		return usuarioReturn;
+		return usuario;
 	}
 
 }

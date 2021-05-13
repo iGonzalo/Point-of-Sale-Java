@@ -15,14 +15,26 @@ public class AmazonService {
 	private final BasicAWSCredentials credentials = new BasicAWSCredentials(Constants.ACCESS_KEY, Constants.SECRET_KEY);
 
 	@SuppressWarnings("deprecation")
-	public void sendSMSMessage(String codigo, String nombre, int cveSucursal) {
+	public void sendSMSMessage(String codigo, String nombre, int claveSucursal) {
 		AmazonSNSClient client = new AmazonSNSClient(credentials);
-		String sucursal = cveSucursal == 1 ? "BERAKA" : "";
+		String sucursal = getSucursal(claveSucursal);
 		String message = "El producto " + nombre + " con código " + codigo + " en la sucursal " + sucursal
 				+ " se ha quedado sin inventario.";
 		String phoneNumber = "+525517241751";
 		client.setRegion(Region.getRegion(Regions.US_EAST_1));
 		client.publish(new PublishRequest().withMessage(message).withPhoneNumber(phoneNumber));
+	}
+
+	public String getSucursal(int claveSucursal) {
+		String nombreSucursal = "";
+		switch (claveSucursal) {
+		case 1:
+			nombreSucursal = "BERAKA";
+			break;
+		default:
+			break;
+		}
+		return nombreSucursal;
 	}
 
 }

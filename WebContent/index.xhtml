@@ -50,7 +50,7 @@
 				<div class="form-group">
 					<p:inputText id="usuario" value="#{loginBean.usuario}"
 						style="width: 89%;" class="form-control" placeholder="Usuario"
-						autocomplete="false" required="required" />
+						autocomplete="off" required="required" />
 					<h:outputText id="userMessage" value="Este campo es requerido."
 						class="errorMessage" style="display: none;"></h:outputText>
 				</div>
@@ -58,7 +58,7 @@
 					<div class="flx">
 						<p:password id="password" value="#{loginBean.password}"
 							class="form-control" placeholder="Contraseña"
-							autocomplete="false" required="required" />
+							autocomplete="off" required="required" />
 						<button id="hide" class="fas fa-eye" type="button"></button>
 					</div>
 					<h:outputText id="passMessage" value="Este campo es requerido."

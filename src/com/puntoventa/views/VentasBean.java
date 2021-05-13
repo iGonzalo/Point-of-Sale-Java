@@ -153,27 +153,26 @@ public class VentasBean implements Serializable {
 						}
 					} else {
 						codigo = "";
-						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-								"Error: ", "El producto no cuenta con inventario."));
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+								"Aviso: ", "El producto " + producto.getNombre() + " no cuenta con inventario."));
 					}
 				} else {
 					codigo = "";
-//					venta.
-//					producto.setCantidadSeleccion(producto.getCantidadSeleccion() + 1.0f);
-					setTotal();
-//					FacesContext.getCurrentInstance().addMessage(null,
-//							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "El producto ya se ha agregado."));
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO, "Info: ",
+									"Puedes aumentar la cantidad del producto " + producto.getNombre()
+											+ " desde la columna CANTIDAD."));
 				}
 			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Error: ", "El producto " + codigo.toUpperCase() + " no existe."));
 				codigo = "";
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", "El producto no existe."));
 			}
 		}
 	}
 
 	public void removeElement(int index) {
-		if(Util.isNotNull(venta.get(index).getSubtotal())) {
+		if (Util.isNotNull(venta.get(index).getSubtotal())) {
 			total = total - venta.get(index).getSubtotal();
 		}
 		venta.remove(index);
