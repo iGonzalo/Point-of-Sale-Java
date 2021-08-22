@@ -1,0 +1,20 @@
+.ui-helper-hidden-accessible {
+	border: 0;
+	clip: auto;
+	height: 1px;
+	margin: -1px;
+	overflow: initial;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+#fileForm {
+	display: flex;
+    align-items: center;
+}
+
+#divOptions {
+	display: flex; 
+	justify-content: space-around;
+}

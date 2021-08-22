@@ -46,7 +46,6 @@ public class FileBean implements Serializable {
 
 	public void readExcelFile() {
 		XSSFWorkbook workbook = null;
-		
 		try {
 			workbook = new XSSFWorkbook(uploadedFile.getInputstream());
 			XSSFSheet sheet = workbook.getSheetAt(0);

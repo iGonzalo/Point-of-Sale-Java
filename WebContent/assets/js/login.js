@@ -24,8 +24,8 @@ $(document).on('ready', function() {
 		} 
 		
 		if (user == '' || user == undefined) {
-			$("#loginForm\\:password").focus();
-			$('#loginForm\\:passMessage').show();
+			$("#loginForm\\:usuario").focus();
+			$('#loginForm\\:userMessage').show();
 			return false;
 		}
 		

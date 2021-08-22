@@ -19,7 +19,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Usuario usuario = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(Constants.USER_STATEMENT);
+			preparedStatement = connection.prepareStatement(Constants.FIND_USER);
 			preparedStatement.setString(1, user);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();

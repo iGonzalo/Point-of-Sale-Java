@@ -1,5 +1,6 @@
 package com.puntoventa.services;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -8,11 +9,18 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.model.PublishRequest;
 import com.puntoventa.utilities.Constants;
+import com.puntoventa.utilities.Util;
 
 @RequestScoped
 public class AmazonService {
 
-	private final BasicAWSCredentials credentials = new BasicAWSCredentials(Constants.ACCESS_KEY, Constants.SECRET_KEY);
+	private BasicAWSCredentials credentials;
+
+	@PostConstruct
+	public void init() {
+		credentials = new BasicAWSCredentials(Util.getDecodedString(Constants.ACCESS_KEY),
+				Util.getDecodedString(Constants.SECRET_KEY));
+	}
 
 	@SuppressWarnings("deprecation")
 	public void sendSMSMessage(String codigo, String nombre, int claveSucursal) {

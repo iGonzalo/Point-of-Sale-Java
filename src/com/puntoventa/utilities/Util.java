@@ -1,5 +1,6 @@
 package com.puntoventa.utilities;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class Util {
 	
 	public static boolean isNotNullOrEmpty(Collection<?> collection) {
 		return isNotNull(collection) && !collection.isEmpty();
+	}
+	
+	public static String getDecodedString(String stringToDecode) {
+		byte[] decoded = Base64.getDecoder().decode(stringToDecode);
+		return new String(decoded);
 	}
 
 }

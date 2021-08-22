@@ -18,6 +18,8 @@
 		href="./css/vendor/fontawesome/all.min.css" />
 	<link rel="stylesheet" type="text/css"
 		href="./css/sb-admin-2.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="./css/producto.css" />
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
@@ -38,19 +40,6 @@
 	padding: .2em !important;
 }
 </style-->
-
-	<style type="text/css">
-.ui-helper-hidden-accessible {
-	border: 0;
-	clip: auto;
-	height: 1px;
-	margin: -1px;
-	overflow: initial;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-}
-</style>
 
 </h:head>
 
@@ -93,7 +82,7 @@
 			<!-- Nav Item - Dashboard -->
 			<h:panelGroup rendered="#{sessionBean.rolUsuario eq 1}">
 				<li class="nav-item"><a class="nav-link"
-					href="admin.xhtml"> <i class="fas fa-shopping-cart"></i> <span>Reporte de Ventas</span></a>
+					href="admin.xhtml"> <i class="fas fa-chart-line"></i> <span>Reporte de Ventas</span></a>
 				</li>
 			</h:panelGroup>
 
@@ -254,10 +243,11 @@
 								</p:column>
 
 								<p:column headerText="Opciones">
-								   <div style="display: flex; justify-content: space-around;">
+								   <div id="divOptions">
 									<p:commandButton value="Editar" class="btn btn-primary btn-sm"
 										action="#{productoBean.setEditarProducto(index)}"
 										icon="fas fa-edit" id="editProduct"
+										oncomplete="openModal(1);"
 										update=":editForm"></p:commandButton>
 									<p:commandButton value="Eliminar" class="btn btn-danger btn-sm"
 										oncomplete="openModal(2);" icon="fas fa-eraser"

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.puntoventa.DAO.ProductoDAO;
 import com.puntoventa.model.Producto;
+import com.puntoventa.utilities.Constants;
 import com.puntoventa.utilities.Database;
 
 public class ProductoDAOImpl implements ProductoDAO {
@@ -20,8 +21,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		Producto producto = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection
-					.prepareStatement("SELECT * FROM PRODUCTO WHERE CODIGO_PRODUCTO = ? AND CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.FIND_PRODUCT);
 			preparedStatement.setString(1, codigo);
 			preparedStatement.setInt(2, sucursal);
 			resultSet = preparedStatement.executeQuery();
@@ -37,7 +37,6 @@ public class ProductoDAOImpl implements ProductoDAO {
 				producto.setDepartamento(resultSet.getInt(8));
 				producto.setSucursal(resultSet.getInt(9));
 			}
-
 		} catch (Exception e) {
 			System.out.println("Producto Error: " + e.getMessage());
 		} finally {
@@ -56,8 +55,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		boolean flag = false;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"SELECT ID_PRODUCTO FROM PRODUCTO WHERE CODIGO_PRODUCTO = ? AND CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.FIND_ID_PRODUCT);
 			preparedStatement.setString(1, codigo);
 			preparedStatement.setInt(2, sucursal);
 			resultSet = preparedStatement.executeQuery();
@@ -83,7 +81,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		List<Producto> productos = new ArrayList<Producto>();
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM PRODUCTO WHERE CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.FIND_ALL_PRODUCTS);
 			preparedStatement.setInt(1, sucursal);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -116,8 +114,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		boolean guardado = false;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"INSERT INTO PRODUCTO(CODIGO_PRODUCTO, NOMBRE, CANTIDAD_DISPONIBLE, PRECIO_COMPRA, PRECIO_VENTA, TIPO_VENTA, CVE_DEPARTAMENTO, CVE_SUCURSAL) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement = connection.prepareStatement(Constants.INSERT_PRODUCT);
 			preparedStatement.setString(1, producto.getCodigo());
 			preparedStatement.setString(2, producto.getNombre());
 			preparedStatement.setFloat(3, producto.getCantidadDisponible());
@@ -144,8 +141,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"UPDATE PRODUCTO SET NOMBRE = ?, CANTIDAD_DISPONIBLE = ?, PRECIO_COMPRA = ?, PRECIO_VENTA = ?, TIPO_VENTA = ?, CVE_DEPARTAMENTO = ? WHERE CODIGO_PRODUCTO = ?");
+			preparedStatement = connection.prepareStatement(Constants.UPDATE_PRODUCT);
 			preparedStatement.setString(1, producto.getNombre());
 			preparedStatement.setFloat(2, producto.getCantidadDisponible());
 			preparedStatement.setFloat(3, producto.getPrecioCompra());
@@ -170,7 +166,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement("DELETE FROM PRODUCTO WHERE ID_PRODUCTO = ? && CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.DELETE_PRODUCT);
 			preparedStatement.setLong(1, id);
 			preparedStatement.setInt(2, sucursal);
 			preparedStatement.execute();

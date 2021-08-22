@@ -12,8 +12,8 @@ public class Database {
 		Connection connection = null;
 		try {
 			Class.forName(Constants.DB_DRIIVER);
-			connection = DriverManager.getConnection(Constants.DB_URL, Constants.DB_USERNAME,
-					Constants.DB_PASSWORD);
+			connection = DriverManager.getConnection(Util.getDecodedString(Constants.DB_URL),
+					Util.getDecodedString(Constants.DB_USERNAME), Util.getDecodedString(Constants.DB_PASSWORD));
 			connection.setAutoCommit(false);
 		} catch (Exception e) {
 			System.out.println("Database connection error: " + e.getMessage());

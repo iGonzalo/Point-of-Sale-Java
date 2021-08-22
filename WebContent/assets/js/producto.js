@@ -13,11 +13,15 @@ $(document).ready(function() {
 		$('.add').focus();
 	});
 	
-	$('#productosDT\\:editProduct').on('click', function() {
-		$('#editModal').modal('show');
-	});
+	//$('#fileForm\\:fileUpload').on('change', function(){
+		//if ($('#fileForm\\:fileUpload').get(0).files.length > 0) {
+			//$('#fileForm\\:cargar').removeAttr('disabled');
+		//}	
+	//});
 
-	function openModal(index) {
+});
+
+function openModal(index) {
 		switch (index) {
 		case 1:
 			$('#editModal').modal('show');
@@ -28,5 +32,4 @@ $(document).ready(function() {
 		default:
 			break;
 		}
-	}
-});
+}

@@ -164,9 +164,9 @@ public class VentasBean implements Serializable {
 											+ " desde la columna CANTIDAD."));
 				}
 			} else {
+				codigo = "";
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Error: ", "El producto " + codigo.toUpperCase() + " no existe."));
-				codigo = "";
 			}
 		}
 	}

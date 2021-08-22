@@ -13,6 +13,7 @@ import com.puntoventa.DAO.VentaDAO;
 import com.puntoventa.model.DetalleVenta;
 import com.puntoventa.model.Producto;
 import com.puntoventa.model.ProductoVendido;
+import com.puntoventa.utilities.Constants;
 import com.puntoventa.utilities.Database;
 
 public class VentaDAOImpl implements VentaDAO {
@@ -25,11 +26,10 @@ public class VentaDAOImpl implements VentaDAO {
 		int detalleVenta = 0;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"INSERT INTO DETALLE_VENTA(FECHA_HORA, TOTAL_VENTA, CVE_SUCURSAL, CVE_USUARIO) VALUES(?, ?, ?, ?)",
+			preparedStatement = connection.prepareStatement(Constants.INSERT_SALE_DETAIL,
 					Statement.RETURN_GENERATED_KEYS);
-		    java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
-		    Timestamp timestamp = new Timestamp(date.getTime());
+			java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+			Timestamp timestamp = new Timestamp(date.getTime());
 			preparedStatement.setTimestamp(1, timestamp);
 			preparedStatement.setFloat(2, total);
 			preparedStatement.setInt(3, sucursal);
@@ -57,8 +57,7 @@ public class VentaDAOImpl implements VentaDAO {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"INSERT INTO VENTA_PRODUCTO(CODIGO_PRODUCTO, NOMBRE_PRODUCTO, CANTIDAD_PRODUCTO, PRECIO_PRODUCTO, SUBTOTAL, CVE_DETALLE_VENTA) VALUES(?, ?, ?, ?, ?, ?)");
+			preparedStatement = connection.prepareStatement(Constants.INSERT_PRODUCT_SALE);
 			preparedStatement.setString(1, producto.getCodigo());
 			preparedStatement.setString(2, producto.getNombre());
 			preparedStatement.setFloat(3, producto.getCantidadSeleccion());
@@ -82,8 +81,7 @@ public class VentaDAOImpl implements VentaDAO {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"UPDATE PRODUCTO SET CANTIDAD_DISPONIBLE = CANTIDAD_DISPONIBLE - ? WHERE CODIGO_PRODUCTO = ? AND CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.UPDATE_STOCK);
 			preparedStatement.setFloat(1, cantidad);
 			preparedStatement.setString(2, codigo);
 			preparedStatement.setInt(3, sucursal);
@@ -106,8 +104,7 @@ public class VentaDAOImpl implements VentaDAO {
 		Float stockActual = 0.0f;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"SELECT CANTIDAD_DISPONIBLE FROM PRODUCTO WHERE CODIGO_PRODUCTO = ? AND CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.GET_ACTUAL_STOCK);
 			preparedStatement.setString(1, codigo);
 			preparedStatement.setInt(2, sucursal);
 			resultSet = preparedStatement.executeQuery();
@@ -133,8 +130,7 @@ public class VentaDAOImpl implements VentaDAO {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"SELECT ID_DETALLE_VENTA, FECHA_HORA, TOTAL_VENTA FROM DETALLE_VENTA WHERE DATE(FECHA_HORA) = ? AND CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(Constants.GET_SALE_DETAIL);
 			preparedStatement.setString(1, date);
 			preparedStatement.setInt(2, sucursal);
 			resultSet = preparedStatement.executeQuery();
@@ -163,8 +159,7 @@ public class VentaDAOImpl implements VentaDAO {
 		List<ProductoVendido> productoList = new ArrayList<ProductoVendido>();
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement(
-					"SELECT CODIGO_PRODUCTO, NOMBRE_PRODUCTO, CANTIDAD_PRODUCTO, PRECIO_PRODUCTO, SUBTOTAL FROM VENTA_PRODUCTO WHERE CVE_DETALLE_VENTA = ?");
+			preparedStatement = connection.prepareStatement(Constants.GET_PRODUCT_SALE);
 			preparedStatement.setLong(1, idDetalle);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -201,8 +196,8 @@ public class VentaDAOImpl implements VentaDAO {
 			preparedStatement.setString(4, concepto);
 			preparedStatement.setInt(5, sucursal);
 			if (preparedStatement.execute()) {
-				preparedStatement2 = connection.prepareStatement("UPDATE CAJA SET MONTO = MONTO "
-						+ (tipo == 1 ? "+" : "-") + " ? WHERE CVE_SUCURSAL = ?");
+				preparedStatement2 = connection.prepareStatement(
+						"UPDATE CAJA SET MONTO = MONTO " + (tipo == 1 ? "+" : "-") + " ? WHERE CVE_SUCURSAL = ?");
 				preparedStatement2.setFloat(1, cantidad);
 				preparedStatement2.setInt(2, sucursal);
 				preparedStatement2.execute();
@@ -223,8 +218,8 @@ public class VentaDAOImpl implements VentaDAO {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = Database.getConnection();
-			preparedStatement = connection.prepareStatement("UPDATE CAJA SET MONTO = MONTO "
-					+ (tipo == 1 ? "+" : "-") + " ? WHERE CVE_SUCURSAL = ?");
+			preparedStatement = connection.prepareStatement(
+					"UPDATE CAJA SET MONTO = MONTO " + (tipo == 1 ? "+" : "-") + " ? WHERE CVE_SUCURSAL = ?");
 			preparedStatement.setFloat(1, cantidad);
 			preparedStatement.setInt(2, sucursal);
 			preparedStatement.execute();
